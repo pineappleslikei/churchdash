@@ -19,8 +19,29 @@ def pco_people_pipeline():
     return upcoming_plans
 
 
+def status_stats(pco_people):
+    status = {
+        'confirmed': 0,
+        'unconfirmed': 0,
+        'declined': 0
+    }
+    for plan in pco_people:
+        for person in plan['people']:
+            if person['status'] == 'C':
+                status['confirmed'] += 1
+            if person['status'] == 'U':
+                status['unconfirmed'] += 1
+            if person['status'] == 'D':
+                status['declined'] += 1
+    return status
+
+
 def is_it_this_week(plan_sort_date):
     if today + timedelta(days=7) < plan_sort_date:
         return False
     else:
         return True
+
+
+pco_people = pco_people_pipeline()
+people_stats = status_stats(pco_people)
