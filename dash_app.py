@@ -9,6 +9,7 @@ import pco_utils as util
 
 app = dash.Dash(__name__)
 
+# status pie chart
 status_labels = ['Confirmed', 'Unconfirmed', 'Declined']
 status_values = [
     util.people_stats['confirmed'],
@@ -19,7 +20,7 @@ status_values = [
 status_fig = px.pie(
     labels=status_labels,
     values=status_values,
-    # colors aren't working?
+    color=status_labels,
     color_discrete_map={'Confirmed': '#84AB57',
                         'Unconfirmed': '#F8D525',
                         'Declined': '#DC3318'},
@@ -27,12 +28,14 @@ status_fig = px.pie(
     hole=.5,
 )
 
+
+# dashboard html layout
 app.layout = html.Div(className='container', children=[
     html.Nav(className='title', children=[
         html.H1(f'Welcome, {util.dash_display_name}!')
     ]),
     html.Div([
-        dcc.Graph(id='pie-chart', figure=status_fig)
+        dcc.Graph(id='status-chart', figure=status_fig)
     ])
 ])
 
