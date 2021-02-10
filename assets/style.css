@@ -1,3 +1,7 @@
 .container {
     display: flex;
 }
+
+#status-chart {
+    box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4);
+}

@@ -26,6 +26,7 @@ status_fig = px.pie(
                         'Declined': '#DC3318'},
     title='PCO Status',
     hole=.5,
+    width=400,
 )
 
 
