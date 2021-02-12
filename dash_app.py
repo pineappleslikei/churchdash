@@ -5,25 +5,25 @@ from dash.dependencies import Input, Output
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import numpy as np
 import pco_utils as util
 
 app = dash.Dash(__name__)
 
-# status pie chart
-status_labels = ['Confirmed', 'Unconfirmed', 'Declined']
-status_values = [
-    util.people_stats['confirmed'],
-    util.people_stats['unconfirmed'],
-    util.people_stats['declined']
-]
+status_data = {
+    'status':util.people_stats,
+    'count':[1 for stat in util.people_stats]
+}
 
+status_df = pd.DataFrame(data=status_data)
 status_fig = px.pie(
-    labels=status_labels,
-    values=status_values,
-    color=status_labels,
-    color_discrete_map={'Confirmed': '#84AB57',
-                        'Unconfirmed': '#F8D525',
-                        'Declined': '#DC3318'},
+    data_frame=status_df,
+    values='count',
+    names='status',
+    color='status',
+    color_discrete_map={'C': '#84AB57',
+                        'U': '#F8D525',
+                        'D': '#DC3318'},
     title='PCO Status',
     hole=.5,
     width=400,

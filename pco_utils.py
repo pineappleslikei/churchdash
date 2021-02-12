@@ -19,20 +19,27 @@ def pco_people_pipeline():
     return upcoming_plans
 
 
+# def status_stats(pco_people):
+#     status = {
+#         'confirmed': 0,
+#         'unconfirmed': 0,
+#         'declined': 0
+#     }
+#     for plan in pco_people:
+#         for person in plan['people']:
+#             if person['status'] == 'C':
+#                 status['confirmed'] += 1
+#             if person['status'] == 'U':
+#                 status['unconfirmed'] += 1
+#             if person['status'] == 'D':
+#                 status['declined'] += 1
+#     return status
+
 def status_stats(pco_people):
-    status = {
-        'confirmed': 0,
-        'unconfirmed': 0,
-        'declined': 0
-    }
+    status = []
     for plan in pco_people:
         for person in plan['people']:
-            if person['status'] == 'C':
-                status['confirmed'] += 1
-            if person['status'] == 'U':
-                status['unconfirmed'] += 1
-            if person['status'] == 'D':
-                status['declined'] += 1
+            status.append(person['status'])
     return status
 
 
