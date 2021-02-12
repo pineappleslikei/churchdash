@@ -10,6 +10,8 @@ import pco_utils as util
 
 app = dash.Dash(__name__)
 
+
+# status pie chart
 status_data = {
     'status':util.people_stats,
     'count':[1 for stat in util.people_stats]
