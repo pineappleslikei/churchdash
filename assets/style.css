@@ -1,7 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .container {
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0 auto;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+nav {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgb(49, 169, 167);
+    margin-bottom: 15px;
+}
+
+#main-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10%;
+    margin: 0 15px 0 15px;
 }
 
 #status-chart {
     box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    max-width: 600px;
+}
+
+#people-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+}
+
+.people-chart-wrappers {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    padding: 0;
+}
+
+.people-charts {
+    display: flex;
+    max-width: 400px;
+    max-height: 300px;
+    margin: 10px;
 }

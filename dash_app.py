@@ -26,10 +26,63 @@ status_fig = px.pie(
     color_discrete_map={'C': '#84AB57',
                         'U': '#F8D525',
                         'D': '#DC3318'},
-    title='PCO Status',
+    title='PCO Status (14-day Forecast)',
     hole=.5,
     width=400,
 )
+status_fig.update_layout(
+    font=dict(
+        family='Josefin Sans',
+        size=16,
+    ),
+    paper_bgcolor='rgba(0,0,0,0)',
+    title=dict(
+        x=0.5
+    )
+)
+
+# people table
+def make_people_fig(plan):
+    plan_data = {
+        'Person':[person['name'] for person in plan['people']],
+        'Position':[person['position'] for person in plan['people']]
+    }
+    df = pd.DataFrame(data=plan_data)
+    plan_people_figure = go.Figure(
+        data=[
+            go.Table(
+                header=dict(
+                    values=['Person', 'Position'],
+                    font=dict(family='Josefin Sans'),
+                ),
+                cells=dict(values=[df.Person, df.Position])
+            )
+        ]
+    )
+    plan_people_figure.update_layout(
+        title=dict(
+            text=f'{plan["pretty_date"]}',
+            x=0.5
+        ),
+        paper_bgcolor='rgba(0,0,0,0)',
+        autosize=True,
+    )
+    return plan_people_figure
+
+
+def make_people_html(list_of_plans):
+    graphs = []
+    for plan in list_of_plans:
+        graphs.append(
+            html.Div(
+                children=[
+                    dcc.Graph(className='people-charts',figure=make_people_fig(plan)),
+                ],
+                className='people-chart-wrappers'
+            )
+        )
+    return graphs
+
 
 
 # dashboard html layout
@@ -37,8 +90,11 @@ app.layout = html.Div(className='container', children=[
     html.Nav(className='title', children=[
         html.H1(f'Welcome, {util.dash_display_name}!')
     ]),
-    html.Div([
-        dcc.Graph(id='status-chart', figure=status_fig)
+    html.Div(id='main-wrapper',children=[
+        html.Div([
+            dcc.Graph(id='status-chart', figure=status_fig)
+        ]),
+        html.Div(children=make_people_html(util.two_weeks_sorted), id='people-container'),
     ])
 ])
 
