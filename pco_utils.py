@@ -1,6 +1,8 @@
 from datetime import datetime, timedelta
 import fetch as f
 
+from pprint import pprint
+
 today = datetime.now()
 dash_display_name = 'Chris'
 
@@ -27,12 +29,24 @@ def status_stats(pco_people):
     return status
 
 
+def date_sort_pipeline(pco_people):
+    this_week_plans = []
+    for plan in pco_people:
+        if is_it_this_week(plan['sort_date']):
+            this_week_plans.append(plan)
+    return this_week_plans
+
+
 def is_it_this_week(plan_sort_date):
-    if today + timedelta(days=7) < plan_sort_date:
+    sort_dt_obj = datetime.strptime(plan_sort_date[:10], '%Y-%m-%d')
+    if today + timedelta(days=14) < sort_dt_obj:
         return False
     else:
         return True
 
 
+
 pco_people = pco_people_pipeline()
-people_stats = status_stats(pco_people)
+two_weeks_plans = date_sort_pipeline(pco_people)
+people_stats = status_stats(two_weeks_plans)
+two_weeks_sorted = sorted(two_weeks_plans, key= lambda plan:plan['sort_date'])
