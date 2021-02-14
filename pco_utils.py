@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 import fetch as f
 
 today = datetime.now()
-dash_display_name = 'Chris'
 
 
 def pco_people_pipeline():

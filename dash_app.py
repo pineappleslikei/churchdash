@@ -10,6 +10,7 @@ import pco_utils as util
 
 app = dash.Dash(__name__)
 
+dash_display_name = 'Chris'
 
 # status pie chart
 status_data = {
@@ -88,7 +89,7 @@ def make_people_html(list_of_plans):
 # dashboard html layout
 app.layout = html.Div(className='container', children=[
     html.Nav(className='title', children=[
-        html.H1(f'Welcome, {util.dash_display_name}!')
+        html.H1(f'Welcome, {dash_display_name}!')
     ]),
     html.Div(id='main-wrapper',children=[
         html.Div([
