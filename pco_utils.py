@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 import fetch as f
 
-from pprint import pprint
-
 today = datetime.now()
 dash_display_name = 'Chris'
 
