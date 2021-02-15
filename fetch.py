@@ -44,20 +44,38 @@ def get_gmail():
 
 def get_pco_service_types():
     response = requests.get(
-        f'{p_conf.BASE_URL}/service_types', auth=(p_cred.app_id, p_cred.secret)).json()
+        f'{p_conf.BASE_URL}{p_conf.types_ep}',
+        auth=(p_cred.app_id, p_cred.secret)
+    ).json()
     service_ids = [service['id'] for service in response['data']]
     return service_ids
 
 
 def get_pco_plans(service_id):
     response = requests.get(
-        f'{p_conf.BASE_URL}{p_conf.types_ep}/{service_id}/plans', auth=(p_cred.app_id, p_cred.secret), params={'filter': 'future'}).json()
+        f'{p_conf.BASE_URL}{p_conf.types_ep}/{service_id}/plans',
+        auth=(p_cred.app_id, p_cred.secret),
+        params={'filter': 'future'}
+    ).json()
     if len(response['data']) > 0:
         plan_ids = {'service_type': service_id, 'plans': [
             plan['id'] for plan in response['data']]}
         return plan_ids
     else:
         return None
+
+
+def get_past_pco_plans(service_id):
+    response = requests.get(
+        f'{p_conf.BASE_URL}{p_conf.types_ep}/{service_id}/plans',
+        auth=(p_cred.app_id, p_cred.secret),
+        params={
+            'filter': '-past',
+            'per-page': '8'
+        }
+    ).json()
+    past_plan_ids = [plan['id' for plan in response['data']]]
+    return past_plan_ids
 
 
 def get_pco_plan_people(service_id, plan_id):
@@ -77,5 +95,11 @@ def get_pco_plan_people(service_id, plan_id):
         return False
 
 
-def get_songs():
-    pass
+def get_plan_items(service_type_id, plan_id):
+    response = requests.get(
+        f'{p_conf.BASE_URL}{p_conf.types_ep}/{service_type_id}/plans/{plan_id}/items',
+        auth=(p_cred.app_id, p_cred.secret),
+        params={'include': 'song'}
+    ).json()
+    plan_songs = [song['attributes']['title'] for song in response['included']]
+    return plan_songs
