@@ -14,8 +14,8 @@ dash_display_name = 'Chris'
 
 # status pie chart
 status_data = {
-    'status':util.people_stats,
-    'count':[1 for stat in util.people_stats]
+    'status': util.people_stats,
+    'count': [1 for stat in util.people_stats]
 }
 
 status_df = pd.DataFrame(data=status_data)
@@ -43,10 +43,12 @@ status_fig.update_layout(
 )
 
 # people table
+
+
 def make_people_fig(plan):
     plan_data = {
-        'Person':[person['name'] for person in plan['people']],
-        'Position':[person['position'] for person in plan['people']]
+        'Person': [person['name'] for person in plan['people']],
+        'Position': [person['position'] for person in plan['people']]
     }
     df = pd.DataFrame(data=plan_data)
     plan_people_figure = go.Figure(
@@ -77,7 +79,8 @@ def make_people_html(list_of_plans):
         graphs.append(
             html.Div(
                 children=[
-                    dcc.Graph(className='people-charts',figure=make_people_fig(plan)),
+                    dcc.Graph(className='people-charts',
+                              figure=make_people_fig(plan)),
                 ],
                 className='people-chart-wrappers'
             )
@@ -85,17 +88,39 @@ def make_people_html(list_of_plans):
     return graphs
 
 
+# song graph
+songs_df = pd.DataFrame.from_dict(util.songs, orient='index').reset_index()
+songs_df = songs_df.rename(columns={'index': 'Song', 0: 'Services'})
+songs_fig = px.bar(songs_df, x='Services', y='Song')
+songs_fig.update_layout(
+    title=dict(
+        text='Song Usage',
+        x=0.5
+    ),
+    paper_bgcolor='rgba(0,0,0,0)',
+    autosize=True,
+)
 
 # dashboard html layout
 app.layout = html.Div(className='container', children=[
     html.Nav(className='title', children=[
         html.H1(f'Welcome, {dash_display_name}!')
     ]),
-    html.Div(id='main-wrapper',children=[
+    html.Div(id='main-wrapper', children=[
         html.Div([
-            dcc.Graph(id='status-chart', figure=status_fig)
+            dcc.Graph(
+                className='charts',
+                id='status-chart',
+                figure=status_fig
+            ),
+            dcc.Graph(
+                className='charts',
+                id='songs-graph',
+                figure=songs_fig
+            )
         ]),
-        html.Div(children=make_people_html(util.two_weeks_sorted), id='people-container'),
+        html.Div(children=make_people_html(
+            util.two_weeks_sorted), id='people-container'),
     ])
 ])
 
