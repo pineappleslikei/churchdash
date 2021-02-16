@@ -51,5 +51,3 @@ two_weeks_plans = date_sort_pipeline(pco_people)
 people_stats = status_stats(two_weeks_plans)
 two_weeks_sorted = sorted(two_weeks_plans, key=lambda plan: plan['sort_date'])
 songs = pco_songs_pipeline()
-
-print(songs)

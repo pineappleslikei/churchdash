@@ -71,8 +71,9 @@ def get_past_pco_plans(service_id):
         f'{p_conf.BASE_URL}{p_conf.types_ep}/{service_id}/plans',
         auth=(p_cred.app_id, p_cred.secret),
         params={
-            'filter': '-past',
-            'per-page': '8'
+            'filter': 'past',
+            'per-page': '8',
+            'order': '-sort_date'
         }
     ).json()
     past_plan_ids = [plan['id'] for plan in response['data']
