@@ -74,7 +74,7 @@ def get_past_pco_plans(service_id):
             'per-page': '8'
         }
     ).json()
-    past_plan_ids = [plan['id' for plan in response['data']]]
+    past_plan_ids = [plan['id'] for plan in response['data']]
     return past_plan_ids
 
 
