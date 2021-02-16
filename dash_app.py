@@ -107,7 +107,7 @@ app.layout = html.Div(className='container', children=[
         html.H1(f'Welcome, {dash_display_name}!')
     ]),
     html.Div(id='main-wrapper', children=[
-        html.Div([
+        html.Div(id='charts-wrapper', children=[
             dcc.Graph(
                 className='charts',
                 id='status-chart',
