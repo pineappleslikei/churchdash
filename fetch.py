@@ -4,6 +4,7 @@ import pickle
 import os.path
 import pco_credentials as p_cred
 import pco_config as p_conf
+import date_utils as d
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
@@ -74,7 +75,8 @@ def get_past_pco_plans(service_id):
             'per-page': '8'
         }
     ).json()
-    past_plan_ids = [plan['id'] for plan in response['data']]
+    past_plan_ids = [plan['id'] for plan in response['data']
+                     if d.was_it_recent(plan['attributes']['sort_date'])]
     return past_plan_ids
 
 
