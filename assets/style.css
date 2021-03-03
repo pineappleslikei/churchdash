@@ -39,21 +39,23 @@ nav {
 }
 
 #people-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
     max-width: 100%;
 }
 
 .people-chart-wrappers {
+    justify-self: center;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     margin: 0;
     padding: 0;
 }
 
 .people-charts {
     display: flex;
-    max-width: 400px;
-    max-height: 600px;
+    justify-content: center;
     margin: 10px;
 }
 
