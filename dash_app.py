@@ -98,7 +98,7 @@ songs_fig.update_layout(
         x=0.5
     ),
     paper_bgcolor='rgba(0,0,0,0)',
-    autosize=True,
+    autosize=False,
 )
 
 # dashboard html layout

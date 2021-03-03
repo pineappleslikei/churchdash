@@ -22,34 +22,30 @@ nav {
 }
 
 #main-wrapper {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
     padding-bottom: 10%;
     margin: 0 15px 0 15px;
 }
 
 #charts-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .charts {
-    box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4);
     margin: 0;
     max-width: 600px;
 }
 
 #people-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 18px;
+    display: flex;
+    max-width: 100%;
 }
 
 .people-chart-wrappers {
     display: flex;
     flex-direction: column;
-    box-shadow: 3px 3px 5px 6px rgba(0, 0, 0, 0.4);
     margin: 0;
     padding: 0;
 }
@@ -57,6 +53,22 @@ nav {
 .people-charts {
     display: flex;
     max-width: 400px;
-    max-height: 300px;
+    max-height: 600px;
     margin: 10px;
+}
+
+@media (max-width: 900px) {
+    #main-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    #charts-wrapper {
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    #people-container {
+        flex-direction: column;
+        align-items: center;
+    }
 }
