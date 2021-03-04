@@ -6,6 +6,12 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
+
+# Modify as needed
+TODO_SENDER_FILTER = 'cellis@moochurch.org'
+TODO_SUBJECT_FILTER = 'todo'
+
+
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
@@ -37,7 +43,7 @@ def get_gmail():
     service = build('gmail', 'v1', credentials=creds)
     results = service.users().messages().list(
         userId='me',
-        q='from:cellis@moochurch.org subject:todo'
+        q=f'from:{TODO_SENDER_FILTER} subject:{TODO_SUBJECT_FILTER}'
     ).execute()
     raw_todo_items = []
     for message in results['messages']:
@@ -60,3 +66,6 @@ def gmail_body_parser(message_body):
         if clean_item not in garbage:
             clean_list.append(clean_item)
     return clean_list
+
+
+todo_list = get_gmail()
